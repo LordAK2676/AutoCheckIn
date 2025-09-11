@@ -22,22 +22,22 @@ jobs:
           cache: pip
           cache-dependency-path: req.txt
 
-
-      # 4. Install Python dependencies
+      # 3. Install Python dependencies
       - name: Install Python dependencies
         run: pip install --upgrade -r req.txt
-# 5. Playwright browsers
-- name: Cache Playwright browsers
-  id: playwright-cache
-  uses: actions/cache@v4
-  with:
-    path: ~/.cache/ms-playwright
-    key: playwright-browsers-${{ runner.os }}-${{ hashFiles('req.txt') }}
 
-- name: Install Playwright browsers
-  run: |
-    python -m playwright install --with-deps
+      # 4. Cache Playwright browsers
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('req.txt') }}
 
+      # 5. Install Firefox browser for Playwright
+      - name: Install Playwright Firefox browser
+        run: |
+          python -m playwright install --with-deps firefox
 
       # 6. Run your script
       - name: Run Auto Check-In Script
