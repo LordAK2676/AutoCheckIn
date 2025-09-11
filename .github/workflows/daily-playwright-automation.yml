@@ -26,18 +26,17 @@ jobs:
       # 4. Install Python dependencies
       - name: Install Python dependencies
         run: pip install --upgrade -r req.txt
-#5. playwirht browser
-      - name: Cache Playwright browsers
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-browsers-${{ runner.os }}-${{ hashFiles('req.txt') }}
+# 5. Playwright browsers
+- name: Cache Playwright browsers
+  id: playwright-cache
+  uses: actions/cache@v4
+  with:
+    path: ~/.cache/ms-playwright
+    key: playwright-browsers-${{ runner.os }}-${{ hashFiles('req.txt') }}
 
-      - name: Install Playwright browsers (only if cache missed)
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: |
-          python -m playwright install --with-deps
+- name: Install Playwright browsers
+  run: |
+    python -m playwright install --with-deps
 
 
       # 6. Run your script
