@@ -37,7 +37,7 @@ jobs:
       - name: Install Playwright browsers (only if cache missed)
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: |
-          python -m playwright install --with-deps firefox
+          python -m playwright install --with-deps
 
 
       # 6. Run your script
